@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import os
 from spotipy import util
 
-def get_spotify_token():
+def get_spotify_token(scope: str):
 
     load_dotenv()
     
@@ -16,7 +16,7 @@ def get_spotify_token():
         client_secret=client_secret,
         redirect_uri=redirect_uri,
         username=username,
-        scope='playlist-modify-private'
+        scope=scope
     )
 
     return user_token
