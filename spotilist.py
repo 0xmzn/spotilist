@@ -14,7 +14,6 @@ def get_playlists(username):
     
     return playlist_dict
 
-
 user_playlists = get_playlists(username)
 
 def get_chosen_playlist(dictionary):
@@ -32,3 +31,20 @@ def get_chosen_playlist(dictionary):
                 print("Invalid choice. Please enter a valid number.")
         except ValueError:
             print("Invalid input. Please enter a number.")
+
+
+def parse_tracks(tracks_dict: dict, tracks_object):
+    for i in tracks_object['items']:
+        tracks_dict[i['track']['name']] = i['track']['id']
+    return tracks_dict
+
+chosen_playlist_id = get_chosen_playlist(user_playlists)
+
+tracks_object = sp.playlist_tracks(playlist_id=chosen_playlist_id)
+tracks_number = tracks_object['total']
+tracks = {}
+
+tracks_pages = tracks_number // 100
+for i in range(1, tracks_pages+1):
+    new_tracks = sp.playlist_tracks(chosen_playlist_id, offset=(100 * i))
+    parse_tracks(tracks, new_tracks) 
