@@ -49,3 +49,29 @@ tracks_pages = tracks_number // 100
 for i in range(0, tracks_pages+1):
     new_tracks = sp.playlist_tracks(chosen_playlist_id, offset=(100 * i))
     parse_tracks(tracks, new_tracks)
+
+def write_tracks_to_files(dictionary, filename):
+    with open(filename, 'w') as file:
+        for key in dictionary.keys():
+            file.write(key + '\n')
+
+    file.close()    
+    shutil.copy(filename, f"{filename}.bak")
+
+filename="songs.txt"
+write_tracks_to_files(tracks, filename)
+
+def find_unique_lines(filename):
+    file1 = filename
+    file2 = f"{filename}.bak"
+    with open(file1, 'r') as file1, open(file2, 'r') as file2:
+        lines1 = set(line.strip() for line in file1)
+        lines2 = set(line.strip() for line in file2)
+
+    unique_lines = list(lines2 - lines1)
+
+    return unique_lines
+
+
+write_tracks_to_files(tracks, filename)
+diff = find_unique_lines(filename)
