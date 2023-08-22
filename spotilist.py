@@ -13,3 +13,22 @@ def get_playlists(username):
         playlist_dict[playlist['name']] = playlist['id']
     
     return playlist_dict
+
+
+user_playlists = get_playlists(username)
+
+def get_chosen_playlist(dictionary):
+    print("Available Playlists:")
+    for i, key in enumerate(dictionary.keys(), start=1):
+        print(f"{i}. {key}")
+
+    while True:
+        try:
+            choice = int(input("Enter the number corresponding to the chosen playlist: "))
+            if 1 <= choice <= len(dictionary):
+                selected_key = list(dictionary.keys())[choice - 1]
+                return dictionary[selected_key]
+            else:
+                print("Invalid choice. Please enter a valid number.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
