@@ -74,4 +74,15 @@ def find_unique_lines(filename):
 
 
 write_tracks_to_files(tracks, filename)
+print(f"Please update {filename} and press enter")
+input()
 diff = find_unique_lines(filename)
+
+def get_tracks_ids(diff, tracks):
+    diff_id = []
+    for i in diff:
+        diff_id.append(tracks[i])
+    return diff_id
+
+diff_ids = get_tracks_ids(diff, tracks)
+sp.playlist_remove_all_occurrences_of_items(chosen_playlist_id, diff_ids)
