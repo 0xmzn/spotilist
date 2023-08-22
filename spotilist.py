@@ -1,5 +1,6 @@
 from auth import *
 import spotipy
+import shutil
 
 
 user_token = get_spotify_token("playlist-modify-private")
@@ -45,6 +46,6 @@ tracks_number = tracks_object['total']
 tracks = {}
 
 tracks_pages = tracks_number // 100
-for i in range(1, tracks_pages+1):
+for i in range(0, tracks_pages+1):
     new_tracks = sp.playlist_tracks(chosen_playlist_id, offset=(100 * i))
-    parse_tracks(tracks, new_tracks) 
+    parse_tracks(tracks, new_tracks)
