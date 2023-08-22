@@ -2,13 +2,13 @@ from dotenv import load_dotenv
 import os
 from spotipy import util
 
-username = os.getenv("USERNAME")
+load_dotenv()
+username = os.getenv("SPOTIFY_USERNAME")
 
 def get_spotify_token(scope: str):
     """
     Retrieves a Spotify access token for the specified scope.
     """
-    load_dotenv()
     
     client_id = os.getenv("CLIENT_ID")
     client_secret = os.getenv("CLIENT_SECRET")
